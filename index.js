@@ -4,8 +4,8 @@ const express = require('express')
 const app = express();
 const port = 8080;
 
-// const accessLogStream = 
-// fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'});
+app.use(express.static('public'));
+app.use(morgan('common'));
 
 let topTenMovies = [
 	{
@@ -58,8 +58,6 @@ app.get('/', (req, res) => {
   res.send('Welcome to my movie club!');
 });
 
-app.use(express.static('public'));
-app.use(morgan('common'));
 
 app.get('/documentation.html', (req, res) => {
   res.sendFile('public/documentation.html', { root: __dirname });
