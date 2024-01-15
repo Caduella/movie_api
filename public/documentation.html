@@ -1,15 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+		<title>MyQuickMovie API Document</title>
 	</head>
-	<body>
-		<h1>Documentation for IMDbWannabee API</h1>
-		<p>This is a project where users can access information about different movies, directors, and genres via this API.
+
+  <body>
+		<div class="container">
+    <h1>Documentation for My Quick Movie API v1.0.0</h1>
 		<br>
-		Users will be able to sign up, update their personal informaiton, and create a list of their favorite movies.
-		</p>
-	</body>
+		<p>This is a project where users can access information about different movies, directors, and genres via this API.
+			<br>
+			Users will be able to sign up, update their personal informaiton, and create a list of their favorite movies and modify it.
+			<br><br>
+			</p>
+   
+    <h2>Supported Requests</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Request</th>
+          <th scope="col">URL</th>
+          <th scope="col">HTTP Method</th>
+          <th scope="col">Request body data format</th>
+          <th scope="col">Response body data format</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Get list of movies</td>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            An array of JSON objects holding data about all the movies in the
+            database
+          </td>
+        </tr>
+        <tr>
+          <td>Get list of movies by director</td>
+          <td>/movies/directors/[director name]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            An array of JSON objects holding data about all the movies by
+            requested director
+          </td>
+        </tr>
+        <tr>
+          <td>Get list of movies by genre</td>
+          <td>/movies/genres/[genre]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            An array of JSON objects holding data about all the movies by
+            requested genre
+          </td>
+        </tr>
+        <tr>
+          <td>Get data about a single movie by title</td>
+          <td>/movies/[title]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about the requested movie like this:<br>
+            {'title': 'The Shawshank Redemption',<br>
+            'director': 'Frank Darabont',<br>
+            'release-year': '1994',<br>
+            'genre': 'drama' }
+          </td>
+        </tr>
+
+        <tr>
+          <td>Add a user</td>
+          <td>/users</td>
+          <td>POST</td>
+          <td>
+            A JSON object holding data about the user to add, structured
+            like:<br><br>{ 'Name': 'Mary Smith',<br>
+            'Username': '[username]',<br>
+            'Email': [user@email.com],<br>
+            'Birth-date': '2000-01-01' }
+          </td>
+          <td>
+            A JSON object holding data about the user that was added, including their assigned id:<br>
+            {'id': '###',<br>
+            'Name': 'Mary Smith',<br>
+            'Username': '[username]',<br>
+            'Email': [user@email.com],<br>
+            'Birth-date': '2000-01-01' }
+          </td>
+        </tr>
+        <tr>
+          <td>Add a movie to a user's favorites list by Title</td>
+          <td>/users/[name]/movies/[movieTitle]</td>
+          <td>PUT</td>
+          <td>None</td>
+          <td>
+            A text message indicating whether the movie was successfully added
+            from the user's list of favorite movies
+          </td>
+        </tr>
+        <tr>
+          <td>Remove a movie from a user's favorites list</td>
+          <td>/users/[name]/movies/[movieTitle]</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>
+            A text message indicating whether the movie was successfully removed
+            from the user's list of favorite movies
+          </td>
+        </tr>
+      </tbody>
+    </table>
+	</div>
+  </body>
 </html>
