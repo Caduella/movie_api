@@ -36,7 +36,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>Get list of movies</td>
+          <td>Return a list of ALL movies</td>
           <td>/movies</td>
           <td>GET</td>
           <td>None</td>
@@ -45,78 +45,109 @@
             database
           </td>
         </tr>
-        <tr>
-          <td>Get list of movies by director</td>
-          <td>/movies/directors/[director name]</td>
-          <td>GET</td>
-          <td>None</td>
-          <td>
-            An array of JSON objects holding data about all the movies by
-            requested director
-          </td>
-        </tr>
-        <tr>
-          <td>Get list of movies by genre</td>
-          <td>/movies/genres/[genre]</td>
-          <td>GET</td>
-          <td>None</td>
-          <td>
-            An array of JSON objects holding data about all the movies by
-            requested genre
-          </td>
-        </tr>
-        <tr>
-          <td>Get data about a single movie by title</td>
+				<tr>
+          <td>Return data about a single movie by title</td>
           <td>/movies/[title]</td>
           <td>GET</td>
           <td>None</td>
           <td>
             A JSON object holding data about the requested movie like this:<br>
-            {'title': 'The Shawshank Redemption',<br>
-            'director': 'Frank Darabont',<br>
-            'release-year': '1994',<br>
-            'genre': 'drama' }
+            {'Title': 'The fountain',<br>
+						'Description':'As a modern-day ...',<br>
+						'Genre.Name':'Drama',<br>
+						'Genre.Description':'In film ...',<br>
+            'Director.Name': 'Darren Aronofsky',<br>
+            'Director.Bio': 'Darren ...',<br>
+            'Director.Birth': '1969',<br>
+						'ImageURL': 'http ...',<br>
+						'Featured': false}
           </td>
         </tr>
-
+				<tr>
+          <td>Return data about a genre by name</td>
+          <td>/movies/genre/[genre name]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            An array of JSON objects holding data about the 
+            requested genre<br>
+						{'Name':'Drama',<br>
+						'Description': 'In film and...'}
+          </td>
+        </tr>
         <tr>
-          <td>Add a user</td>
+          <td>Return data about a director</td>
+          <td>/movies/directors/[director name]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            An array of JSON objects holding data about the 
+            requested director<br>
+						{'Name': 'Darren Aronofsky',<br>
+						'Bio': 'Darren ...',<br>
+						'Birth': 1969}
+          </td>
+        </tr>
+        <tr>
+          <td>Allow new users to register</td>
           <td>/users</td>
           <td>POST</td>
           <td>
             A JSON object holding data about the user to add, structured
             like:<br><br>{ 'Name': 'Mary Smith',<br>
-            'Username': '[username]',<br>
-            'Email': [user@email.com],<br>
-            'Birth-date': '2000-01-01' }
+            'favoriteMovies': []}
           </td>
           <td>
             A JSON object holding data about the user that was added, including their assigned id:<br>
-            {'id': '###',<br>
-            'Name': 'Mary Smith',<br>
-            'Username': '[username]',<br>
-            'Email': [user@email.com],<br>
-            'Birth-date': '2000-01-01' }
+            {'Name': 'Mary Smith',<br>
+            'favoriteMovies': '[]',<br>
+						'id': '#...',}
           </td>
         </tr>
+				<tr>
+          <td>Allow users to update their user info (username)</td>
+          <td>/users/[id]</td>
+          <td>PUT</td>
+          <td>
+            A JSON object holding data about the user to add, structured
+            like:<br><br>{ 'Name': 'Updated Name',<br>
+						'favoriteMovies': []}
+					</td>
+          <td>
+            A JSON object holding data about the user that was added, including their assigned id:<br>
+            {'id': '#',<br>
+            'Name': 'Updated Name',<br>
+						'favoriteMovies': [],}           
+          </td>
+        </tr>
+
         <tr>
           <td>Add a movie to a user's favorites list by Title</td>
-          <td>/users/[name]/movies/[movieTitle]</td>
-          <td>PUT</td>
+          <td>/users/[id]/favoriteMovies/[movieTitle]</td>
+          <td>PATCH</td>
           <td>None</td>
           <td>
             A text message indicating whether the movie was successfully added
-            from the user's list of favorite movies
+            to the user's list of favorite movies
           </td>
         </tr>
         <tr>
           <td>Remove a movie from a user's favorites list</td>
-          <td>/users/[name]/movies/[movieTitle]</td>
+          <td>/users/[id]/favoriteMovies/[movieTitle]</td>
           <td>DELETE</td>
           <td>None</td>
           <td>
             A text message indicating whether the movie was successfully removed
             from the user's list of favorite movies
+          </td>
+        </tr>
+				<tr>
+          <td>Allow existing users to deregister</td>
+          <td>/users/[id]</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>
+            A text message indicating whether the user was successfully removed.
           </td>
         </tr>
       </tbody>
