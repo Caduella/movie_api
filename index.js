@@ -125,7 +125,7 @@ app.put('/users/:id', (req, res) => {
 })
 
 //Allow users to add a movie to their list of favorites
-app.patch('/users/:id/:movieTitle', (req, res) => {
+app.patch('/users/:id/favoriteMovies/:movieTitle', (req, res) => {
 	const { id, movieTitle } = req.params;
 	
 	let user = users.find( user => user.id == id);
@@ -139,7 +139,7 @@ app.patch('/users/:id/:movieTitle', (req, res) => {
 })
 
 //Allow users to remove a movie from their list of favorites
-app.delete('/users/:id/:movieTitle', (req, res) => {
+app.delete('/users/:id/favoriteMovies/:movieTitle', (req, res) => {
 	const { id, movieTitle } = req.params;
 	
 	let user = users.find( user => user.id == id);
