@@ -52,7 +52,8 @@
           <td>None</td>
           <td>
             A JSON object holding data about the requested movie like this:<br>
-            {'Title': 'The fountain',<br>
+            {'_id': '65aae20568a918670a575688'
+            'Title': 'The fountain',<br>
 						'Description':'As a modern-day ...',<br>
 						'Genre.Name':'Drama',<br>
 						'Genre.Description':'In film ...',<br>
@@ -64,28 +65,25 @@
           </td>
         </tr>
 				<tr>
-          <td>Return data about a genre by name</td>
+          <td>Return movies of a genre by name</td>
           <td>/movies/genre/[genre name]</td>
           <td>GET</td>
           <td>None</td>
           <td>
-            An array of JSON objects holding data about the 
-            requested genre<br>
-						{'Name':'Drama',<br>
-						'Description': 'In film and...'}
+            An array of JSON objects holding data of the movies 
+            belonging to the requested genre<br>
+						
           </td>
         </tr>
         <tr>
-          <td>Return data about a director</td>
+          <td>Return movies by a director's name</td>
           <td>/movies/directors/[director name]</td>
           <td>GET</td>
           <td>None</td>
           <td>
-            An array of JSON objects holding data about the 
-            requested director<br>
-						{'Name': 'Darren Aronofsky',<br>
-						'Bio': 'Darren ...',<br>
-						'Birth': 1969}
+            An array of JSON objects holding data of the movies
+            belonging to the requested director<br>
+						
           </td>
         </tr>
         <tr>
@@ -94,60 +92,69 @@
           <td>POST</td>
           <td>
             A JSON object holding data about the user to add, structured
-            like:<br><br>{ 'Name': 'Mary Smith',<br>
-            'favoriteMovies': []}
+            like:<br><br>{ 'Username': 'sdavis07',<br>
+            'Password': 'Sdavis_2007',<br>
+            'Email': 'sdavis07@example.com',<br>
+            'Birthday': '2007-02-21'}
           </td>
           <td>
             A JSON object holding data about the user that was added, including their assigned id:<br>
-            {'Name': 'Mary Smith',<br>
-            'favoriteMovies': '[]',<br>
-						'id': '#...',}
+            {'Username': 'sdavis07',<br>
+            'Password': 'Sdavis_2007',<br>
+            'Email': 'sdavis07@example.com',<br>
+            'Birthday': '2007-02-21',<br>
+            'FavoriteMovies': [],<br>
+            '_id': '65ad66...'}
           </td>
         </tr>
 				<tr>
-          <td>Allow users to update their user info (username)</td>
-          <td>/users/[id]</td>
+          <td>Allow users to update their user info</td>
+          <td>/users/[username]</td>
           <td>PUT</td>
           <td>
             A JSON object holding data about the user to add, structured
-            like:<br><br>{ 'Name': 'Updated Name',<br>
-						'favoriteMovies': []}
+            like:<br><br>{'Username': 'sdavis07',<br>
+            'Password': 'Updated info',<br>
+            'Email': 'sdavis07@example.com',<br>
+            'Birthday': '2007-02-21'}
 					</td>
           <td>
             A JSON object holding data about the user that was added, including their assigned id:<br>
-            {'id': '#',<br>
-            'Name': 'Updated Name',<br>
-						'favoriteMovies': [],}           
+            {'_id': '65ad66...',<br>
+            'Username': 'sdavis07',<br>
+            'Password': 'Updated info',<br>
+            'Email': 'sdavis07@example.com',<br>
+            'Birthday': '2007-02-21',<br>
+            'FavoriteMovies': []}
+                   
           </td>
         </tr>
 
         <tr>
           <td>Add a movie to a user's favorites list by Title</td>
-          <td>/users/[id]/favoriteMovies/[movieTitle]</td>
-          <td>PATCH</td>
+          <td>/users/[username]/movies/[movieID]</td>
+          <td>POST</td>
           <td>None</td>
           <td>
-            A text message indicating whether the movie was successfully added
-            to the user's list of favorite movies
+            A JSON object holding data about the user including the added movieID in the FavoriteMovies array.
           </td>
         </tr>
         <tr>
           <td>Remove a movie from a user's favorites list</td>
-          <td>/users/[id]/favoriteMovies/[movieTitle]</td>
+          <td>/users/[username]/movies/[movieID]</td>
           <td>DELETE</td>
           <td>None</td>
           <td>
-            A text message indicating whether the movie was successfully removed
-            from the user's list of favorite movies
+            A JSON object holding data about the user with the FavoriteMovies array now missing the deleted movieID.
           </td>
         </tr>
 				<tr>
           <td>Allow existing users to deregister</td>
-          <td>/users/[id]</td>
+          <td>/users/[username]</td>
           <td>DELETE</td>
           <td>None</td>
           <td>
-            A text message indicating whether the user was successfully removed.
+            A text message indicating that [username] was deleted.
           </td>
         </tr>
       </tbody>

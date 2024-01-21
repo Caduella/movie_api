@@ -72,9 +72,9 @@ app.get('/movies/genres/:genreName', async (req, res) => {
 });
 
 
-//Return a movie by a given director's name 
+//Return movies by a given director's name 
 app.get('/movies/directors/:directorName', async (req, res) => {
-  await Movies.findOne({ 'Director.Name': req.params.directorName })
+  await Movies.find({ 'Director.Name': req.params.directorName })
     .then((movies) => {
       res.json(movies);
     })
