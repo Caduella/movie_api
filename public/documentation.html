@@ -65,24 +65,30 @@
           </td>
         </tr>
 				<tr>
-          <td>Return movies of a genre by name</td>
+          <td>Return data about a genre by name</td>
           <td>/movies/genre/[genre name]</td>
           <td>GET</td>
           <td>None</td>
           <td>
-            An array of JSON objects holding data of the movies 
-            belonging to the requested genre<br>
+            An array of JSON objects holding data about the 
+            requested genre<br>
+						{'Name':'Drama',<br>
+						'Description': 'In film and...'}
 						
           </td>
         </tr>
         <tr>
-          <td>Return movies by a director's name</td>
+          <td>Return data about a director</td>
           <td>/movies/directors/[director name]</td>
           <td>GET</td>
           <td>None</td>
           <td>
-            An array of JSON objects holding data of the movies
-            belonging to the requested director<br>
+            An array of JSON objects holding data about the 
+            requested director<br>
+						{'Name': 'Darren Aronofsky',<br>
+						'Bio': 'Darren ...',<br>
+						'Birth': 1969}
+          </td>
 						
           </td>
         </tr>

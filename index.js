@@ -15,7 +15,7 @@ app.use(express.static('public'));
 //Log requests to server
 app.use(morgan('common'));
 
-mongoose.connect('mongodb://localhost:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/cfDB');
 
 //Default text response when at /
 app.get('/', (req, res) =>{
@@ -59,11 +59,11 @@ app.get('/movies/:Title', async (req, res) => {
     });
 });
 
-//Return movies by its genre 
+//Return data about a genre by name
 app.get('/movies/genres/:genreName', async (req, res) => {
-  await Movies.find({ 'Genre.Name': req.params.genreName })
+  await Movies.findOne({ 'Genre.Name': req.params.genreName })
     .then((movies) => {
-      res.status(200).json(movies);
+      res.json(movies.Genre);
     })
     .catch((err) => {
       console.error(err);
@@ -72,11 +72,11 @@ app.get('/movies/genres/:genreName', async (req, res) => {
 });
 
 
-//Return movies by a given director's name 
+//Return data about a director
 app.get('/movies/directors/:directorName', async (req, res) => {
-  await Movies.find({ 'Director.Name': req.params.directorName })
+  await Movies.findOne({ 'Director.Name': req.params.directorName })
     .then((movies) => {
-      res.json(movies);
+      res.json(movies.Director);
     })
     .catch((err) => {
       console.error(err);
