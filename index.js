@@ -1,8 +1,8 @@
 const express = require('express'),
-			app = express(),
-			morgan = require('morgan'),			
-			uuid = require('uuid'),
-			mongoose = require('mongoose'),
+      app = express(),
+      morgan = require('morgan'),			
+      uuid = require('uuid'),
+      mongoose = require('mongoose'),
       Models = require ('./models'),
       Movies = Models.Movie,
       Users = Models.User;
@@ -91,10 +91,10 @@ app.post('/users', async (req, res) => {
             Birthday: req.body.Birthday,
 				})
           .then((user) =>{res.status(201).json(user) })  
-					.catch((error) => {
-						console.error(error);
-						res.status(500).send('Error: ' + error);
-					})      	
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+          })      	
       }
     })
     .catch((err) => {
@@ -103,7 +103,7 @@ app.post('/users', async (req, res) => {
     });
 });
 
-//Allow users to update their user info (username)
+//Allow users to update their user info 
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
    // CONDITION TO CHECK ADDED HERE
    if(req.user.Username !== req.params.Username){
@@ -147,17 +147,17 @@ app.post('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', { sess
 
 //Allow users to remove a movie from their list of favorites
 app.delete('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
-	await Users.findOneAndUpdate({ Username: req.params.Username },	{ 
-		$pull: { FavoriteMovies: req.params.MovieID } 
-	},
-	{ new: true }) // This line makes sure that the updated document is returned
-	.then ((updatedUser) => {
-    res.json(updatedUser);
-  })
-	.catch((err) => {
-			console.error(err);
-			res.status(500).send('Error: ' + err);
-		});
+    await Users.findOneAndUpdate({ Username: req.params.Username },	{ 
+    $pull: { FavoriteMovies: req.params.MovieID } 
+    },
+    { new: true }) // This line makes sure that the updated document is returned
+    .then ((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 
