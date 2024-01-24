@@ -26,7 +26,9 @@ require('./passport');
 app.use(morgan('common'));
 
 //MongoDB connection via Mongoose
-mongoose.connect('mongodb://localhost:27017/cfDB');
+mongoose.connect(process.env.CONNECTION_URI);
+
+// mongoose.connect('mongodb://localhost:27017/cfDB');
 
 //Port designaiton
 const port = process.env.PORT || 8080;
