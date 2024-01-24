@@ -25,10 +25,8 @@ require('./passport');
 //Log requests to server
 app.use(morgan('common'));
 
-//MongoDB connection via Mongoose
+//MongoDB connection to the hosted site
 mongoose.connect(process.env.CONNECTION_URI);
-
-// mongoose.connect('mongodb://localhost:27017/cfDB');
 
 //Port designaiton
 const port = process.env.PORT || 8080;
@@ -232,15 +230,5 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
     });
 });
 
-//Return a list of all users
-app.get('/users', async (req, res) => {
-	await Users.find()
-	.then((users) => {
-		res.status(201).json(users);
-	})
-	.catch((err) => {
-		console.error(err);
-		res.status(500).send('Error: ' + err);
-	});
-})
+
 
