@@ -1,7 +1,6 @@
 const express = require('express'),
       app = express(),
       morgan = require('morgan'),			
-      uuid = require('uuid'),
       mongoose = require('mongoose'),
       Models = require ('./models'),
       Movies = Models.Movie,
@@ -18,7 +17,7 @@ app.use(cors());
 const { check, validationResult } = require('express-validator');
 
 //Authentication
-let auth = require('./auth')(app);
+require('./auth')(app);
 const  passport = require('passport');
 require('./passport');
 
@@ -34,11 +33,11 @@ app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);
 });
 
-
 //Default text response when at /
 app.get('/', (req, res) =>{
 	res.send('Welcome to MyQuickMovie API');
 });
+
 
 //Return a list of ALL movies to the user
 app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
@@ -76,7 +75,6 @@ app.get('/movies/genres/:genreName', passport.authenticate('jwt', { session: fal
     });
 });
 
-
 //Return data about a director
 app.get('/movies/directors/:directorName', passport.authenticate('jwt', { session: false }), async (req, res) => {
   await Movies.findOne({ 'Director.Name': req.params.directorName })
@@ -88,7 +86,6 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
       res.status(500).send('Error: ' + err);
     });
 });
-
 
 //Add a new user with validation logic for request
 app.post('/signup', [
@@ -110,7 +107,7 @@ app.post('/signup', [
   await Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.Username + 'already exists');
+        return res.status(400).send(req.body.Username + ' already exists');
       } else {
         Users
           .create({
@@ -132,7 +129,6 @@ app.post('/signup', [
     });
 });
 
-
 //Allow users to update their user info 
 app.put('/users/:Username', [
   check('Username', 'Username is required').isLength({min: 5}),
@@ -148,10 +144,11 @@ passport.authenticate('jwt', { session: false }), async (req, res) => {
   if(req.user.Username !== req.params.Username){
     return res.status(400).send('Permission denied');
   }
+  let hashedPassword = Users.hashPassword(req.body.Password);
   await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
-      Password: req.body.Password,
+      Password: hashedPassword,
       Email: req.body.Email,
       Birthday: req.body.Birthday
     }
@@ -187,7 +184,6 @@ app.post('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', { sess
   });
 });
 
-
 //Allow users to remove a movie from their list of favorites
 app.delete('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
   // CONDITION TO CHECK ADDED HERE
@@ -207,7 +203,6 @@ app.delete('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', { se
     res.status(500).send('Error: ' + err);
   });
 });
-
 
 //Allow existing users to deregister
 app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
@@ -230,5 +225,15 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
     });
 });
 
-
+//Return Data about a user by Username
+app.get('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
+	await Users.findOne({ Username: req.params.Username })
+	.then((users) => {
+		res.status(201).json(users);
+	})
+	.catch((err) => {
+		console.error(err);
+		res.status(500).send('Error: ' + err);
+	});
+})
 

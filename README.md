@@ -11,6 +11,7 @@ This web application implements a RESTful API to perform CRUD operations on many
 - Allow users to add a movie to their list of favorites
 - Allow users to remove a movie from their list of favorites
 - Allow existing users to deregister
+- Return data about a user by name
 
 # Technical Requirements
 -The API is a Node.js and Express application.
