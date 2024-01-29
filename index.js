@@ -40,7 +40,7 @@ app.get('/', (req, res) =>{
 
 
 //Return a list of ALL movies to the user
-app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.get('/movies', async (req, res) => {
   await Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
@@ -52,7 +52,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), async (req,
 });
 
 //Return data about a single movie by title
-app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.get('/movies/:Title', async (req, res) => {
   await Movies.findOne({ Title: req.params.Title })
     .then((movie) => {
       res.json(movie);
@@ -64,7 +64,7 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), asyn
 });
 
 //Return data about a genre by name
-app.get('/movies/genres/:genreName', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.get('/movies/genres/:genreName', async (req, res) => {
   await Movies.findOne({ 'Genre.Name': req.params.genreName })
     .then((movies) => {
       res.json(movies.Genre);
@@ -76,7 +76,7 @@ app.get('/movies/genres/:genreName', passport.authenticate('jwt', { session: fal
 });
 
 //Return data about a director
-app.get('/movies/directors/:directorName', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.get('/movies/directors/:directorName', async (req, res) => {
   await Movies.findOne({ 'Director.Name': req.params.directorName })
     .then((movies) => {
       res.json(movies.Director);
