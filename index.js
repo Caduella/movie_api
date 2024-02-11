@@ -129,6 +129,14 @@ app.post('/signup', [
     });
 });
 
+//Allow users to log in
+app.post('/login', passport.authenticate('local', { session: false }), (req, res) => {
+  const user = req.user;
+  const token = generateJWTToken(user); 
+  res.status(200).json({ user, token });
+});
+
+
 //Allow users to update their user info 
 app.put('/users/:Username', [
   check('Username', 'Username is required').isLength({min: 5}),
