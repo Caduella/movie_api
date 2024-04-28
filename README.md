@@ -1,5 +1,13 @@
 # My Quick Movie API
+
+## Description
 This web application implements a RESTful API to perform CRUD operations on many different aspects on the application. Users will be able to sign up, update their personal information, and add and remove movies from their favorites as well as obtaining informaiton about different movies, directors, and genres.
+
+# API Hosted 
+https://myquickmovieapi.onrender.com
+
+## Screenshot of the App
+![App Screenshot](myFlixDBview.png)
 
 # Essential Features
 - Return a list of all movies to the user
@@ -28,11 +36,19 @@ This web application implements a RESTful API to perform CRUD operations on many
 - The API source code is deployed to  a publicly accessible platform like GitHub.
 - The API is deployed to Render.
 
-# API Hosted: https://myquickmovieapi.onrender.com
-
 # Dependencies
-
-List of dependencies can be found under package.json file
+    bcrypt
+    body-parser
+    cors
+    express
+    express-validator
+    jsonwebtoken
+    mongoose
+    morgan
+    passport
+    passport-jwt
+    passport-local
+    uuid
 
 
 
